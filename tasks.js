@@ -61,6 +61,12 @@ function onDataReceived(text) {
   else if (text.split(" ")[0] === 'edit' || text === 'edit\n'){
     editTask(text);
   }
+  else if (text.split(" ")[0] === 'check' || text === 'check\n'){
+    checkTask(text);
+  }
+  else if (text.split(" ")[0] === 'uncheck' || text === 'uncheck\n'){
+    unCheckTask(text);
+  }
   else{
     unknownCommand(text)
   }
@@ -119,7 +125,7 @@ function listAll(){
   }else {
   tasks.map((task, i) => {
     let random = Math.floor(Math.random() * 7) + 1
-    console.log(`\x1b[3${random}m`, i +1 + "-" + task[0], task[1], "\x1b[0m")
+    console.log(`\x1b[3${random}m`, i +1 + "-" + task[0], task[1] + "\x1b[0m")
   })
 }
 }
@@ -133,12 +139,12 @@ function addTask(todo){
   if(todo.trim() === "add"){
     console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
   }else{
-    tasks.push([todo.split(" ")[1].trim(), '[ ]']);
+    tasks.push([todo.split(" ")[1].trim(), '[ ]', [ ]]);
     console.log("\x1b[32m" + todo.split(" ")[1].trim() + " is added to the tasks \x1b[0m")
   }
 }
 /**
- * adds to the tasks list
+ * edit a task in list
  * 
  * @return {void}
  */
@@ -159,7 +165,7 @@ function editTask(todo){
   }
 }
 /**
- * adds to the tasks list
+ * removes from the tasks list
  * 
  * @return {void}
  */
@@ -170,9 +176,49 @@ function removeTask(todo){
   else if (tasks[Number(todo.split(" ")[1].trim())-1] == undefined){
     console.log("\x1b[31m", "Task is not defined!","\x1b[0m" )
   }else{
-    console.log("\x1b[32m" + "["+tasks[Number(todo.split(" ")[1].trim())-1]+"]" + " is removed from tasks \x1b[0m");
+    console.log("\x1b[32m" + "["+tasks[Number(todo.split(" ")[1].trim())-1][0]+"]" + " is removed from tasks \x1b[0m");
     tasks.splice(Number(todo.split(" ")[1].trim())-1,1);
     
+  }
+}
+/**
+ * checks a task
+ * 
+ * @return {void}
+ */
+function checkTask(todo){
+  if(todo.trim() === "check"){
+    console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
+  }
+  else if (tasks[Number(todo.split(" ")[1].trim())-1] == undefined){
+    console.log("\x1b[31m", "Task is not defined!","\x1b[0m" )
+  }
+  else if (tasks[Number(todo.split(" ")[1].trim())-1][1] == '[\u2713]'){
+    console.log("\x1b[31m", "Task is already checked!","\x1b[0m" )
+  }
+  else{
+    tasks[Number(todo.split(" ")[1].trim())-1][1] = '[\u2713]';
+    console.log("\x1b[32m" + "["+ tasks[Number(todo.split(" ")[1].trim())-1][0] + "]" + " task is checked \x1b[0m");
+  }
+}
+/**
+ * un-checks a task
+ * 
+ * @return {void}
+ */
+function unCheckTask(todo){
+  if(todo.trim() === "check"){
+    console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
+  }
+  else if (tasks[Number(todo.split(" ")[1]) -1] == undefined){
+    console.log("\x1b[31m", "Task is not defined!","\x1b[0m" )
+  }
+  else if (tasks[Number(todo.split(" ")[1].trim())-1][1] == '[ ]'){
+    console.log("\x1b[31m", "Task is already unchecked!","\x1b[0m" )
+  }
+  else{
+    tasks[Number(todo.split(" ")[1].trim())-1][1] = '[ ]';
+    console.log("\x1b[32m" + "["+ tasks[Number(todo.split(" ")[1].trim())-1][0] + "]" + " task is unchecked \x1b[0m");
   }
 }
 
