@@ -13,9 +13,9 @@ function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`);
+  console.log(`\x1b[40m\x1b[36m\x1b[5mWelcome\x1b[0m\x1b[40m\x1b[36m to ${name}'s application!`);
   console.log("type 'help' to see all commands");
-  console.log("--------------------")
+  console.log("--------------------","\x1b[0m")
 }
 
 /*
@@ -95,9 +95,14 @@ function hello(text){
  * @return {void}
  */
 function helpCommand(){
+  console.log("\x1b[34m");
   console.log("1.[hello] to print hello! or [hello] followed by your name to print hello + your name");
-  console.log("2.[exit or quit] to exit the program");
-  console.log("3.[help] to show all commands and their description")
+  console.log("2.[list] to list all the tasks");
+  console.log("3.[add] to add a task");
+  console.log("4.[remove] followed by the number of the task to delete it");
+  console.log("5.[exit or quit] to exit the program");
+  console.log("6.[help] to show all commands and their description")
+  console.log("\x1b[0m");
 }
 
 /**
@@ -110,7 +115,8 @@ function listAll(){
     console.log("\x1b[31m", "list is empty","\x1b[0m")
   }else {
   tasks.map((task, i) => {
-    console.log(i +1 + "-" + task)
+    let random = Math.floor(Math.random() * 7) + 1
+    console.log(`\x1b[3${random}m`, i +1 + "-" + task, "\x1b[0m")
   })
 }
 }
@@ -136,6 +142,8 @@ function addTask(todo){
 function removeTask(todo){
   if(todo.trim() === "remove"){
     console.log("\x1b[31m", "error missing parameter!","\x1b[0m" )
+  }else if (tasks[Number(todo.split(" ")[1].trim())-1] == undefined){
+    console.log("\x1b[31m", "task is not defined!","\x1b[0m" )
   }else{
     console.log("\x1b[32m" + "["+tasks[Number(todo.split(" ")[1].trim())-1]+"]" + " is removed from tasks \x1b[0m");
     tasks.splice(Number(todo.split(" ")[1].trim())-1,1);
@@ -150,7 +158,7 @@ function removeTask(todo){
  * @returns {void}
  */
 function quit(){
-  console.log('Quitting now, goodbye!')
+  console.log('Quitting now, goodbye!', "\x1b[0m")
   process.exit();
 }
 
