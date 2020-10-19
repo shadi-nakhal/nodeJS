@@ -52,6 +52,9 @@ function onDataReceived(text) {
   else if (text === 'list\n'){
     listAll();
   }
+  else if (text.split(" ")[0] === 'add' || text === 'add\n'){
+    addTask(text);
+  }
   else{
     unknownCommand(text)
   }
@@ -95,7 +98,7 @@ function helpCommand(){
 }
 
 /**
- * prints all the to do list
+ * prints all the tasks
  * 
  * @return {void}
  */
@@ -103,6 +106,20 @@ function listAll(){
   tasks.map((task, i) => {
     console.log(i +1 + "-" + task)
   })
+}
+
+/**
+ * adds to the tasks list
+ * 
+ * @return {void}
+ */
+function addTask(todo){
+  if(todo.trim() === "add"){
+    console.log("\x1b[31m", "error missing parameter!","\x1b[0m" )
+  }else{
+    tasks.push(todo.split(" ")[1].trim());
+    console.log("\x1b[32m" + todo.split(" ")[1].trim() + " is added to the tasks \x1b[0m")
+  }
 }
 
 
