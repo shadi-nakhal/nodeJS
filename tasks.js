@@ -81,7 +81,7 @@ function hello(text){
  * @return {void}
  */
 function helpCommand(){
-  console.log("1.[hello] to print hello!");
+  console.log("1.[hello] to print hello! or [hello] followed by your name to print hello + your name");
   console.log("2.[exit or quit] to exit the program");
   console.log("3.[help] to show all commands and their description")
 }
