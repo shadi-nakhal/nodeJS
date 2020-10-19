@@ -78,6 +78,7 @@ function hello(){
 function helpCommand(){
   console.log("1.[hello] it prints hello!");
   console.log("2.[exit or quit] it exit the program");
+  console.log("3.[help] to show all commands and their description")
 }
 
 /**
