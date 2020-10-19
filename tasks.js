@@ -55,6 +55,9 @@ function onDataReceived(text) {
   else if (text.split(" ")[0] === 'add' || text === 'add\n'){
     addTask(text);
   }
+  else if (text.split(" ")[0] === 'remove' || text === 'remove\n'){
+    removeTask(text);
+  }
   else{
     unknownCommand(text)
   }
@@ -103,9 +106,13 @@ function helpCommand(){
  * @return {void}
  */
 function listAll(){
+  if(tasks.length == 0){
+    console.log("\x1b[31m", "list is empty","\x1b[0m")
+  }else {
   tasks.map((task, i) => {
     console.log(i +1 + "-" + task)
   })
+}
 }
 
 /**
@@ -119,6 +126,20 @@ function addTask(todo){
   }else{
     tasks.push(todo.split(" ")[1].trim());
     console.log("\x1b[32m" + todo.split(" ")[1].trim() + " is added to the tasks \x1b[0m")
+  }
+}
+/**
+ * adds to the tasks list
+ * 
+ * @return {void}
+ */
+function removeTask(todo){
+  if(todo.trim() === "remove"){
+    console.log("\x1b[31m", "error missing parameter!","\x1b[0m" )
+  }else{
+    console.log("\x1b[32m" + "["+tasks[Number(todo.split(" ")[1].trim())-1]+"]" + " is removed from tasks \x1b[0m");
+    tasks.splice(Number(todo.split(" ")[1].trim())-1,1);
+    
   }
 }
 
