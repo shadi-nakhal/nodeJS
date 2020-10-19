@@ -108,9 +108,12 @@ function helpCommand(){
   console.log("1.[hello] To print hello! or [hello] followed by your name to print hello + your name");
   console.log("2.[list] To list all the tasks");
   console.log("3.[add] To add a task");
-  console.log("4.[remove] Followed by the number of the task to delete it");
-  console.log("5.[exit or quit] To exit the program");
-  console.log("6.[help] To show all commands and their description")
+  console.log('4.[edit] Followed by the number of the task and the word "new" To edit a task or without the number to edit the latest task');
+  console.log("5.[remove] Followed by the number of the task to delete it");
+  console.log("6.[check] To check a task");
+  console.log("7.[uncheck] To uncheck a task");
+  console.log("8.[help] To show all commands and their description")
+  console.log("9.[exit or quit] To exit the program");
   console.log("\x1b[0m");
 }
 
