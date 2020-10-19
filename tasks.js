@@ -13,16 +13,57 @@ function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
-  console.log(`\x1b[40m\x1b[36m\x1b[5mWelcome\x1b[0m\x1b[40m\x1b[36m to ${name}'s application!`);
+  console.log(`\x1b[36mWelcome\x1b[0m\x1b[40m\x1b[36m to ${name}'s application!`);
   console.log("type 'help' to see all commands");
   console.log("--------------------","\x1b[0m")
 }
+/*
+loading fs module
+*/
+var fs = require('fs');
 
 /*
-stores all the tasks
+configurable savings
 */
-var tasks = [["finish this exercise",'[ ]'], ["eat food", '[ ]']]
+if(process.argv[2] != undefined){
+  try{
+    if(fs.existsSync(process.argv[2])){
+      var DData = process.argv[2];
+    }else{
+      var DData = process.argv[2];
+      fs.writeFileSync(DData, JSON.stringify([]) ,'utf8', function (err) {
+        if (err) throw err;
+        console.log("loaded")
+      });
+    }
+  }catch(errr){
+    console.log("aklna l dareb")
+  }
+}else{
+  try{
+    if(fs.existsSync("database.json")){
+      var DData = "database.json";
+    }else{
+      var DData = "database.json";
+      fs.writeFileSync(DData, JSON.stringify([]) ,'utf8', function (err) {
+        if (err) throw err;
+        console.log("loaded")
+      });
+    }
+  }catch(errr){
+    console.log("aklna l dareb")
+  }
+}
+/*
+preparing data from json file
+*/
+ var Data = fs.readFileSync(DData);
+/*
+loading up data
+*/
+var tasks = JSON.parse(Data) ;
 
+console.log(Data)
 
 /**
  * Decides what to do depending on the data that was received
@@ -142,7 +183,7 @@ function addTask(todo){
   if(todo.trim() === "add"){
     console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
   }else{
-    tasks.push([todo.split(" ")[1].trim(), '[ ]', [ ]]);
+    tasks.push([todo.split(" ").slice(1).join(" ").trim(), "[ ]"]);
     console.log("\x1b[32m" + todo.split(" ")[1].trim() + " is added to the tasks \x1b[0m")
   }
 }
@@ -231,9 +272,13 @@ function unCheckTask(todo){
  * @returns {void}
  */
 function quit(){
-  console.log('\x1b[36mQuitting now, goodbye!', "\x1b[0m")
-  process.exit();
+  fs.writeFile(DData, JSON.stringify(tasks, null, 1) ,'utf8', function (err) {
+    if (err) throw err;
+    console.log('\x1b[36m Saving and Quitting now, goodbye!', "\x1b[0m")
+    process.exit();
+  });
 }
+
 
 // The following line starts the application
 startApp("Shadi Nakhal")
