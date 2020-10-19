@@ -38,14 +38,14 @@ function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
+  else if(text.split(" ")[0] === 'hello' || text === 'hello\n'){
+    hello(text);
   }
   else if (text === 'help\n'){
     helpCommand();
   }
   else{
-    unknownCommand(text);
+    unknownCommand(text)
   }
 }
 
@@ -67,8 +67,12 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello(text){
+  if(text === "hello\n"){
+    console.log("hello!")
+  }else{
+  console.log(text.replace('\n', '!'))
+  }
 }
 
 /**
