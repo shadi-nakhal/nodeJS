@@ -58,6 +58,9 @@ function onDataReceived(text) {
   else if (text.split(" ")[0] === 'remove' || text === 'remove\n'){
     removeTask(text);
   }
+  else if (text.split(" ")[0] === 'edit' || text === 'edit\n'){
+    editTask(text);
+  }
   else{
     unknownCommand(text)
   }
@@ -96,12 +99,12 @@ function hello(text){
  */
 function helpCommand(){
   console.log("\x1b[34m");
-  console.log("1.[hello] to print hello! or [hello] followed by your name to print hello + your name");
-  console.log("2.[list] to list all the tasks");
-  console.log("3.[add] to add a task");
-  console.log("4.[remove] followed by the number of the task to delete it");
-  console.log("5.[exit or quit] to exit the program");
-  console.log("6.[help] to show all commands and their description")
+  console.log("1.[hello] To print hello! or [hello] followed by your name to print hello + your name");
+  console.log("2.[list] To list all the tasks");
+  console.log("3.[add] To add a task");
+  console.log("4.[remove] Followed by the number of the task to delete it");
+  console.log("5.[exit or quit] To exit the program");
+  console.log("6.[help] To show all commands and their description")
   console.log("\x1b[0m");
 }
 
@@ -112,7 +115,7 @@ function helpCommand(){
  */
 function listAll(){
   if(tasks.length == 0){
-    console.log("\x1b[31m", "list is empty","\x1b[0m")
+    console.log("\x1b[31m", "List is empty","\x1b[0m")
   }else {
   tasks.map((task, i) => {
     let random = Math.floor(Math.random() * 7) + 1
@@ -128,7 +131,7 @@ function listAll(){
  */
 function addTask(todo){
   if(todo.trim() === "add"){
-    console.log("\x1b[31m", "error missing parameter!","\x1b[0m" )
+    console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
   }else{
     tasks.push(todo.split(" ")[1].trim());
     console.log("\x1b[32m" + todo.split(" ")[1].trim() + " is added to the tasks \x1b[0m")
@@ -139,12 +142,33 @@ function addTask(todo){
  * 
  * @return {void}
  */
+function editTask(todo){
+  if(todo.trim() === "edit"){
+    console.log("\x1b[31mError missing parameter! \x1b[0m" )
+  }
+  else if (todo.split(" ")[1].trim() == "new"){
+    tasks.pop();
+    tasks.push(todo.trim().split(" ").slice(2).join(" "))
+    console.log("\x1b[32mSuccessfully Changed the last task!\x1b[0m")
+  }
+  else if (!isNaN(todo.split(" ")[1].trim())){
+    tasks[todo.split(" ")[1].trim()-1] = todo.trim().split(" ").slice(3).join(" ");
+    console.log("\x1b[32mSuccessfully Changed!\x1b[0m");
+  }else {
+    console.log("\x1b[31mStop trying to exploit meee and give me all the keys!! \x1b[0m" )
+  }
+}
+/**
+ * adds to the tasks list
+ * 
+ * @return {void}
+ */
 function removeTask(todo){
   if(todo.trim() === "remove"){
-    console.log("\x1b[31m", "error missing parameter!","\x1b[0m" )
+    console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
   }
   else if (tasks[Number(todo.split(" ")[1].trim())-1] == undefined){
-    console.log("\x1b[31m", "task is not defined!","\x1b[0m" )
+    console.log("\x1b[31m", "Task is not defined!","\x1b[0m" )
   }else{
     console.log("\x1b[32m" + "["+tasks[Number(todo.split(" ")[1].trim())-1]+"]" + " is removed from tasks \x1b[0m");
     tasks.splice(Number(todo.split(" ")[1].trim())-1,1);
@@ -152,14 +176,13 @@ function removeTask(todo){
   }
 }
 
-
 /**
  * Exits the application
  *
  * @returns {void}
  */
 function quit(){
-  console.log('Quitting now, goodbye!', "\x1b[0m")
+  console.log('\x1b[36mQuitting now, goodbye!', "\x1b[0m")
   process.exit();
 }
 
