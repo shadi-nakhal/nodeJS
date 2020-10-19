@@ -142,7 +142,8 @@ function addTask(todo){
 function removeTask(todo){
   if(todo.trim() === "remove"){
     console.log("\x1b[31m", "error missing parameter!","\x1b[0m" )
-  }else if (tasks[Number(todo.split(" ")[1].trim())-1] == undefined){
+  }
+  else if (tasks[Number(todo.split(" ")[1].trim())-1] == undefined){
     console.log("\x1b[31m", "task is not defined!","\x1b[0m" )
   }else{
     console.log("\x1b[32m" + "["+tasks[Number(todo.split(" ")[1].trim())-1]+"]" + " is removed from tasks \x1b[0m");
