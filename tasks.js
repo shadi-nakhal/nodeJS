@@ -63,7 +63,6 @@ loading up data
 */
 var tasks = JSON.parse(Data) ;
 
-console.log(Data)
 
 /**
  * Decides what to do depending on the data that was received
@@ -122,7 +121,7 @@ function onDataReceived(text) {
  * @returns {void}
  */
 function unknownCommand(c){
-  console.log('unknown command: "'+c.trim()+'"')
+  console.log('\x1b[31munknown command: "'+c.trim()+'" \x1b[0m')
 }
 
 
@@ -184,7 +183,7 @@ function addTask(todo){
     console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
   }else{
     tasks.push([todo.split(" ").slice(1).join(" ").trim(), "[ ]"]);
-    console.log("\x1b[32m" + todo.split(" ")[1].trim() + " is added to the tasks \x1b[0m")
+    console.log("\x1b[32m" + todo.split(" ").slice(1).join(" ").trim() + " is added to the tasks \x1b[0m")
   }
 }
 /**
