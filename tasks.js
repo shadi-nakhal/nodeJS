@@ -13,7 +13,8 @@ function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`)
+  console.log(`Welcome to ${name}'s application!`);
+  console.log("type 'help' to see all commands");
   console.log("--------------------")
 }
 
@@ -76,8 +77,8 @@ function hello(){
  * @return {void}
  */
 function helpCommand(){
-  console.log("1.[hello] it prints hello!");
-  console.log("2.[exit or quit] it exit the program");
+  console.log("1.[hello] to print hello!");
+  console.log("2.[exit or quit] to exit the program");
   console.log("3.[help] to show all commands and their description")
 }
 
