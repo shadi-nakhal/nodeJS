@@ -18,6 +18,11 @@ function startApp(name){
   console.log("--------------------")
 }
 
+/*
+stores all the tasks
+*/
+var tasks = ["finish this exercise", "eat food"]
+
 
 /**
  * Decides what to do depending on the data that was received
@@ -43,6 +48,9 @@ function onDataReceived(text) {
   }
   else if (text === 'help\n'){
     helpCommand();
+  }
+  else if (text === 'list\n'){
+    listAll();
   }
   else{
     unknownCommand(text)
@@ -85,6 +93,18 @@ function helpCommand(){
   console.log("2.[exit or quit] to exit the program");
   console.log("3.[help] to show all commands and their description")
 }
+
+/**
+ * prints all the to do list
+ * 
+ * @return {void}
+ */
+function listAll(){
+  tasks.map((task, i) => {
+    console.log(i +1 + "-" + task)
+  })
+}
+
 
 /**
  * Exits the application
