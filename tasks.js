@@ -21,7 +21,7 @@ function startApp(name){
 /*
 stores all the tasks
 */
-var tasks = ["finish this exercise", "eat food"]
+var tasks = [["finish this exercise",'[ ]'], ["eat food", '[ ]']]
 
 
 /**
@@ -119,7 +119,7 @@ function listAll(){
   }else {
   tasks.map((task, i) => {
     let random = Math.floor(Math.random() * 7) + 1
-    console.log(`\x1b[3${random}m`, i +1 + "-" + task, "\x1b[0m")
+    console.log(`\x1b[3${random}m`, i +1 + "-" + task[0], task[1], "\x1b[0m")
   })
 }
 }
@@ -133,7 +133,7 @@ function addTask(todo){
   if(todo.trim() === "add"){
     console.log("\x1b[31m", "Error missing parameter!","\x1b[0m" )
   }else{
-    tasks.push(todo.split(" ")[1].trim());
+    tasks.push([todo.split(" ")[1].trim(), '[ ]']);
     console.log("\x1b[32m" + todo.split(" ")[1].trim() + " is added to the tasks \x1b[0m")
   }
 }
@@ -148,11 +148,11 @@ function editTask(todo){
   }
   else if (todo.split(" ")[1].trim() == "new"){
     tasks.pop();
-    tasks.push(todo.trim().split(" ").slice(2).join(" "))
+    tasks.push([todo.trim().split(" ").slice(2).join(" "), '[ ]'])
     console.log("\x1b[32mSuccessfully Changed the last task!\x1b[0m")
   }
   else if (!isNaN(todo.split(" ")[1].trim())){
-    tasks[todo.split(" ")[1].trim()-1] = todo.trim().split(" ").slice(3).join(" ");
+    tasks[todo.split(" ")[1].trim()-1][0] = todo.trim().split(" ").slice(3).join(" ");
     console.log("\x1b[32mSuccessfully Changed!\x1b[0m");
   }else {
     console.log("\x1b[31mStop trying to exploit meee and give me all the keys!! \x1b[0m" )
